@@ -3,4 +3,179 @@
     ViewBag.Title = "Index";
 }
 
+<!-- 開發環境版本，包含了有幫助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
+<!-- 生產環境版本，優化了尺寸和速度，即壓縮版本，刪除了錯誤相關警告 -->
+@*<script src="https://cdn.jsdelivr.net/npm/vue"></script>*@
+
+<div class="alert alert-success" role="alert">
+    <h3><strong>引用 CDN</strong></h3>
+    <hr />
+    <p>開發環境: https://cdn.jsdelivr.net/npm/vue/dist/vue.js </p>
+    <p>生產環境: https://cdn.jsdelivr.net/npm/vue </p>
+</div>
+
+<div class="alert alert-info" role="alert">
+    <h3><strong>聲明式渲染 (Declarative Rendering)</strong></h3>
+    <hr />
+    <ul>
+        <li>字串插補</li>
+        <li>綁定元素屬性</li>
+    </ul>
+    <hr />
+    <div id="app">
+        {{ message }}
+    </div>
+    <div id="app-2">
+        <span v-bind:title="message">
+            Hover your mouse over me for a few seconds to see my dynamically bound title!
+        </span>
+    </div>
+</div>
+
+<div class="alert alert-danger" role="alert">
+    <h3><strong>條件與循環 (Conditionals and Loops)</strong></h3>
+    <hr />
+    <div id="app-3">
+        <span v-if="seen">Now you see me</span>
+    </div>
+    <div id="app-4">
+        <ol>
+            <li v-for="todo in todos">
+                {{ todo.text }}
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="alert alert-warning" role="alert">
+    <h3><strong>處理用戶輸入 (Handling User Input)</strong></h3>
+    <hr />
+    <ul>
+        <li>添加監聽者用以監聽 click 事件</li>
+        <li>雙向綁定</li>
+    </ul>
+    <hr />
+    <div id="app-5">
+        <p>{{ message }}</p>
+        <button class="btn btn-warning" v-on:click="reverseMessage">Reverse Message</button>
+    </div>
+    <br />
+    <div id="app-6">
+        <p>{{ message }}</p>
+        <input v-model="message" />
+    </div>
+</div>
+
+<div class="alert alert-primary">
+    <h3><strong>建構元件</strong></h3>
+    <hr />
+    <ul>
+        <li>靜態項目</li>
+        <li>動態項目</li>
+    </ul>
+    <hr />
+    <div id="app-7">
+        <ol>
+            <!-- 建立 todo-item 元件實例 -->
+            <todo-item></todo-item>
+        </ol>
+    </div>
+    <br />
+    <div id="app-7-1">
+        <ol>
+            <!-- 為 todo-item2 提供 object -->
+            <todo-item2 v-for="item in groceryList"
+                        v-bind:todo="item"
+                        v-bind:key="item.id"></todo-item2>
+        </ol>
+    </div>
+</div>
+
+<script>
+    // 字串插補
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+        }
+    });
+
+    // 綁定元素屬性
+    var app2 = new Vue({
+        el: '#app-2',
+        data: {
+            message: 'You loaded this page on ' + new Date().toLocaleString()
+        }
+    });
+
+    // 條件
+    var app3 = new Vue({
+        el: '#app-3',
+        data: {
+            seen: true
+        }
+    });
+
+    // 列表循環
+    var app4 = new Vue({
+        el: '#app-4',
+        data: {
+            todos: [
+                { text: 'Learn Javascript' },
+                { text: 'Learn Vue' },
+                { text: 'Build something awesome' }
+            ]
+        }
+    });
+
+    // 監聽 click 事件
+    var app5 = new Vue({
+        el: '#app-5',
+        data: {
+            message: 'Hello Vue.js !'
+        },
+        methods: {
+            reverseMessage: function () {
+                this.message = this.message.split('').reverse().join('')
+            }
+        }
+    });
+
+    // 雙向綁定
+    var app6 = new Vue({
+        el: '#app-6',
+        data: {
+            message: 'Hello Vue.js !'
+        }
+    });
+
+    // 元件構成
+
+    // 1.定義一個名為 todo-item 的元件
+    Vue.component('todo-item', {
+        template: '<li>This is a todo</li>'
+    })
+
+    var app7 = new Vue({
+        el: '#app-7'
+    });
+
+    // 2.讓元件接受一個 prop，類似自定義 attribute，該 prop 名為 todo
+    Vue.component('todo-item2', {
+        props: ['todo'],
+        template:'<li>{{ todo.text }}</li>'
+    })
+
+    var app7_1 = new Vue({
+        el: '#app-7-1',
+        data: {
+            groceryList: [
+                { id: 0, text: 'Vegetables' },
+                { id: 1, text: 'Cheese' },
+                { id: 3, text: 'Whatever else humans are supposed to eat' }
+            ]
+        }
+    })
+</script>

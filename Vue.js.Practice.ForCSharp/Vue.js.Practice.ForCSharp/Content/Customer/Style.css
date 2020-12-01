@@ -1,0 +1,14 @@
+﻿body {
+    
+}
+
+.alert-primary {
+    color: #8435a5;
+    background-color: #e0b3f3;
+    border-color: #dda6f5;
+}
+
+.alert-primary hr {
+    border-top-color: #d17cf6;
+}
+
